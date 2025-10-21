@@ -58,3 +58,17 @@ func GetMovie() gin.HandlerFunc {
 		c.JSON(http.StatusOK, movie)
 	}
 }
+
+func AddMovie() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
+
+		var movie models.Movie
+		err := c.ShouldBindJSON(&movie); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error":"Invalid input"})
+			return
+		}
+
+	}
+}
